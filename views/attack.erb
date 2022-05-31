@@ -1,0 +1,25 @@
+<% if @game.current_turn == @game.player_1 %>
+<%= @game.player_1.name %> attacked <%= @game.player_2.name %>
+<% else %>
+<%= @game.player_2.name %> attacked <%= @game.player_1.name%>
+<% end %>
+<br>
+<% if @game.opponent_of(@game.current_turn).hp <= 0 %>
+and knocked them out! Well done, you win!
+<form action="/" method="get">
+    <input type="submit" value="You win!">
+</form>
+<%else%>
+<form action="/switch-turns" method="post">
+    <input type="submit" value="OK">
+</form>
+<%end%>
+
+<% if @game.current_turn.status == 'Asleep'%>
+You are asleep and may miss the next turn
+
+<%end%>
+
+<% if @game.current_turn.status == 'poisened' %>
+You are Poisened and will take small damage each turn for the rest of the game!
+<%end%>

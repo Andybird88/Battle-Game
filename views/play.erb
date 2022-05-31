@@ -1,0 +1,87 @@
+<%if @game.player_1.hp <= 0 %>
+<h1><%=@game.player_2.name%> wins!</h1>
+<a href="https://pokemondb.net/pokedex/blastoise"><img src="https://img.pokemondb.net/sprites/black-white/normal/blastoise.png" alt="Blastoise"></a>
+<form action='/'>
+<input type='submit' value='Play Again'>
+</form>
+<%elsif @game.player_2.hp <= 0%>
+<h1><%=@game.player_1.name%> wins!</h1>
+<a href="https://pokemondb.net/pokedex/charizard"><img src="https://img.pokemondb.net/sprites/ruby-sapphire/normal/charizard.png" alt="Charizard"></a>
+<form action='/'>
+<input type='submit' value='Play Again'>
+</form>
+<%else%>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<h1><%= @game.player_1.name %> Vs <%= @game.player_2.name %></h1>
+<br>
+It's <%= @game.current_turn.name%>'s turn....
+<br>
+<br>
+<div class="player1" style="padding: 1%; border:solid; width:50%;margin:auto;border-radius: 25px;">
+
+<h3><%= @game.player_1.name %> <%= @game.player_1.hp %>/60HP</h3>
+<%if @game.player_1.status == 'poisened'%>
+You are poisened!
+<% end %>
+<div class="w3-border" style="width:20%">
+<div class="w3-green" style="height:24px;width:<%=(((@game.player_1.hp.to_f)/60)*100)%>%"></div>
+
+</div>
+
+
+<br>
+<a href="https://pokemondb.net/pokedex/charizard"><img src="https://img.pokemondb.net/sprites/ruby-sapphire/normal/charizard.png" alt="Charizard"></a>
+<br>
+<br>
+<% if (@game.current_turn.name) == (@game.player_1.name) %>
+<% if (@game.current_turn.status == 'Asleep')%>
+You are asleep. Click to try and wake up!
+<form action='/wakeup'>
+<input type="submit" name="wake_up" value="Wake up">
+</form>
+<% else %>
+<form action='/attack'>
+<input type='submit' name='attack' value='Tackle'>
+<input type='submit' name='attack' value='Flamethrower'>
+<input type='submit' name='attack' value='Sleep Powder'>
+<input type='submit' name='attack' value='Poisen Powder'>
+</form>
+<% end %>
+<% end %>
+</div>
+<br>
+<br>
+<div class="player2" style="padding: 1%; border:solid; width:50%;margin:auto;border-radius: 25px;">
+<h3><%= @game.player_2.name%>: <%= @game.player_2.hp %>/60HP</h3>
+<%if @game.player_2.status == 'poisened'%>
+You are poisened!
+<% end %>
+<br>
+<br>
+<div class="w3-border" style="width:20%">
+<div class="w3-green" style="height:24px;width:<%=(((@game.player_2.hp.to_f)/60)*100)%>%"></div>
+
+</div>
+<br>
+<a href="https://pokemondb.net/pokedex/blastoise"><img src="https://img.pokemondb.net/sprites/black-white/normal/blastoise.png" alt="Blastoise"></a>
+
+<% if @game.current_turn.name == @game.player_2.name %>
+<% if (@game.current_turn.status == 'Asleep')%>
+You are asleep. Click to try and wake up!
+<form action='/wakeup'>
+<input type="submit" name="wake_up" value="Wake up">
+</form>
+<% else %>
+<form action='/attack'>
+<input type='submit' name='attack' value='Tackle'>
+<input type='submit' name='attack' value='Hydro Pump'>
+<input type='submit' name='attack' value='Sleep Powder'>
+<input type='submit' name='attack' value='Poisen Powder'>
+</form>
+<% end %>
+<% end %>
+<% end %>
+</div>
